@@ -26,7 +26,7 @@ Important notes:
 Features:
 
 		* Supports Multiline Text.
-		* Supports horizontal and verticle alignment.
+		* Supports horizontal and vertical alignment.
 		* Support for \n for new line.
 		* kerning
 		
