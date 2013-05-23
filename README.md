@@ -30,5 +30,8 @@ Features:
 		* Support for \n for new line.
 		* kerning
 		
+Demo:
+
+	https://googledrive.com/host/0BzMWTsJiuGb7d2NCSVdSb19qaVk/index.html
 
 		
