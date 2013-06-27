@@ -29,6 +29,9 @@ Features:
 		* Supports horizontal and vertical alignment.
 		* Support for \n for new line.
 		* kerning
+		* Change color using setColor method of BitmapTextField
+		
+Note: You need to include Filter.js and ColorFilter.js to your project, if you are using minified version of easeljs.
 		
 Demo:
 

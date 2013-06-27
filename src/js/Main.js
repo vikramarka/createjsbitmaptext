@@ -113,18 +113,25 @@ Main.prototype.initialize = function()
 		
 		bitmapText = new BitmapTextField(200,100,"Bitmap text and multiline text","cooper",-1,0,0,"right","center",true);
 		bitmapText.showBorder();
-		
+			
 		bitmapText.x = 10;
+		bitmapText.y = 220;
+		thisRef.mainStage.addChild(bitmapText);
+		
+		
+		bitmapText = new BitmapTextField(200,100,"you can change the color also","cooper",-1,0,0,"center","center",true);
+		bitmapText.setColor("#009900");
+			
+		bitmapText.x = 220;
 		bitmapText.y = 220;
 		thisRef.mainStage.addChild(bitmapText);
 		
 		thisRef.score = 0;
 		
 		thisRef.scoreText = new BitmapTextField(200,50,"Score: "+thisRef.score,"cooper",-1,0,0,"right","center",true);
-		
-		
+			
 		thisRef.scoreText.x = 200;
-		thisRef.scoreText.y = 330;
+		thisRef.scoreText.y = 350;
 		thisRef.mainStage.addChild(thisRef.scoreText);
 		
 		

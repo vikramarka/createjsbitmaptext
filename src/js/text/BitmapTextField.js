@@ -32,6 +32,7 @@
 		this.hAlign = hAlign;
 		this.vAlign = vAlign;
 		this.autoScale = autoScale;
+		this.color = "";
 		this.initialize(width, height, text, fontName,fontSize,horizantalLetterSpacing,verticalLetterSpacing,hAlign,vAlign,autoScale);
         this.containerWidth = width;
         this.containerHeight = height;
@@ -70,9 +71,14 @@
 	instance.setText = function(text)
 	{
 		var textDisplay = String(text);
+		this.textContainer.uncache();
 		this.textContainer.removeAllChildren();
 		var container = this.font.createSprite(this.containerWidth,this.containerHeight,textDisplay,this.fontSize,this.horizantalLetterSpacing,this.verticalLetterSpacing,this.hAlign,this.vAlign,this.autoScale,true);
 		this.textContainer.addChild(container);	
+		if(this.color!="")
+		{
+			this.setColor(this.color);
+		}
 		this.actualWidth = this.font.getWidth();
 		
 	};
@@ -97,6 +103,27 @@
 		if(visible==null)
 			visible = true;
 		this.border.visible = visible;
+	};
+	instance.setColor = function(color)
+	{
+		
+		var R = hexToR(color);
+		var G = hexToG(color);
+		var B = hexToB(color);
+		
+		if(color!=this.color)
+		{
+			this.colorFilter = new createjs.ColorFilter(0,0,0,1,R,G,B,0);
+		}
+		this.textContainer.filters = [this.colorFilter];
+		this.textContainer.cache(0,0,this.containerWidth,this.containerHeight);
+
+		this.color = color;
+		
+		function hexToR(h) {return parseInt((cutHex(h)).substring(0,2),16)}
+		function hexToG(h) {return parseInt((cutHex(h)).substring(2,4),16)}
+		function hexToB(h) {return parseInt((cutHex(h)).substring(4,6),16)}
+		function cutHex(h) {return (h.charAt(0)=="#") ? h.substring(1,7):h}
 	};
 	//One must register bitmapfont before creating a textfield..
 	/**
