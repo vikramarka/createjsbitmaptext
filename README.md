@@ -1,6 +1,8 @@
 createjsbitmaptext
 ==================
 
+Updated to EaselJS 0.8.0
+
 bitmap font library for createjs library
 
 Use bmFonts or GlyphDesigner to export bitmap fonts.

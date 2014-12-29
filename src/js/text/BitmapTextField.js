@@ -17,6 +17,9 @@
 	
 	BitmapTextField = function (width, height, text, fontName,fontSize,horizantalLetterSpacing,verticalLetterSpacing,hAlign,vAlign,autoScale) 
 	{
+		
+		this.Container_constructor();
+		
 		this.font = null;
 		if(horizantalLetterSpacing==null)
 			horizantalLetterSpacing = 1;
@@ -41,12 +44,11 @@
 		this.verticalLetterSpacing = verticalLetterSpacing;
 	}
 	BitmapTextField.bitmapFonts = [];
-	var instance = BitmapTextField.prototype = new createjs.Container();
-    instance.BitmapTextField_initialize = instance.initialize;
+	var instance = createjs.extend(BitmapTextField,createjs.Container);
+
     instance.initialize = function (width, height, text, fontName,fontSize,horizantalLetterSpacing,verticalLetterSpacing,hAlign,vAlign,autoScale)
 	{
 		var textDisplay = String(text);
-		this.BitmapTextField_initialize();
         this.border = new createjs.Shape();
         this.border.graphics.setStrokeStyle(1);
         this.border.graphics.beginStroke(createjs.Graphics.getRGB(255,0,0));
@@ -143,7 +145,6 @@
 			console.log(fontName+" : is already registered");
 		}
 	}
-	
-	
+	window.BitmapTextField = createjs.promote(BitmapTextField,'Container');
 	
 })(window);

@@ -49,25 +49,27 @@ Main.prototype.initialize = function()
 	* createjs
 	*/
 	this.count = 0;
-	loader = new createjs.PreloadJS();
+	loader = new createjs.LoadQueue();
   
 	
 	
     loader.loadFile('cooper.png');
 	loader.loadFile('cooper.xml');
     var thisRef = this;
-	loader.onFileLoad = function(event){
-	
-		 if(event.type==createjs.PreloadJS.IMAGE){
+	loader.on('fileload',fileLoadHandler);
+	loader.on('complete',loadCompleteHandler);
+	function fileLoadHandler(event){
+		if(event.item.type==createjs.AbstractLoader.IMAGE){
 			 thisRef.bitmap = event.result;
 		 }
-		 if(event.type==createjs.PreloadJS.XML){
+		 if(event.item.type==createjs.AbstractLoader.XML){
 			 thisRef.xml = event.result;
 			
 		 }
-	 }
-	
-    loader.onComplete = function(event){
+	}
+	 
+	 
+    function loadCompleteHandler(event){
 	
 		bitmapFont = new BitmapFont(thisRef.bitmap,thisRef.xml,32);
 		BitmapTextField.registerBitmapFont(bitmapFont,"cooper");
@@ -76,46 +78,50 @@ Main.prototype.initialize = function()
 		bitmapText.showBorder();
 		
 		bitmapText.x = 10;
+		bitmapText.y = 10;
 		thisRef.mainStage.addChild(bitmapText);
 		
 		bitmapText = new BitmapTextField(200,100,"Bitmap text","cooper",-1,0,0,"right","top",true);
 		bitmapText.showBorder();
 		
 		bitmapText.x = 220;
+		bitmapText.y = 10;
 		thisRef.mainStage.addChild(bitmapText);
 		
 		bitmapText = new BitmapTextField(200,100,"Bitmap text","cooper",-1,0,0,"center","top",true);
 		bitmapText.showBorder();
 		
 		bitmapText.x = 430;
+		bitmapText.y = 10;
 		thisRef.mainStage.addChild(bitmapText);
 		
 		bitmapText = new BitmapTextField(200,100,"Bitmap text","cooper",-1,0,0,"center","center",true);
 		bitmapText.showBorder();
 		
 		bitmapText.x = 10;
-		bitmapText.y = 110;
+		bitmapText.y = 120;
 		thisRef.mainStage.addChild(bitmapText);
 		
 		bitmapText = new BitmapTextField(200,100,"Bitmap text and multiline text","cooper",-1,0,0,"center","center",true);
 		bitmapText.showBorder();
 		
 		bitmapText.x = 220;
-		bitmapText.y = 110;
+		bitmapText.y = 120;
 		thisRef.mainStage.addChild(bitmapText);
 		
 		bitmapText = new BitmapTextField(200,100,"Bitmap text and multiline text","cooper",-1,0,0,"left","center",true);
 		bitmapText.showBorder();
 		
 		bitmapText.x = 430;
-		bitmapText.y = 110;
+		bitmapText.y = 120;
 		thisRef.mainStage.addChild(bitmapText);
 		
 		bitmapText = new BitmapTextField(200,100,"Bitmap text and multiline text","cooper",-1,0,0,"right","center",true);
 		bitmapText.showBorder();
-			
+		
+		
 		bitmapText.x = 10;
-		bitmapText.y = 220;
+		bitmapText.y = 240;
 		thisRef.mainStage.addChild(bitmapText);
 		
 		
@@ -123,7 +129,7 @@ Main.prototype.initialize = function()
 		bitmapText.setColor("#009900");
 			
 		bitmapText.x = 220;
-		bitmapText.y = 220;
+		bitmapText.y = 240;
 		thisRef.mainStage.addChild(bitmapText);
 		
 		thisRef.score = 0;
@@ -131,39 +137,33 @@ Main.prototype.initialize = function()
 		thisRef.scoreText = new BitmapTextField(200,50,"Score: "+thisRef.score,"cooper",-1,0,0,"right","center",true);
 			
 		thisRef.scoreText.x = 200;
-		thisRef.scoreText.y = 350;
+		thisRef.scoreText.y = 360;
 		thisRef.mainStage.addChild(thisRef.scoreText);
+
 		
 		
 	};
 	
-	createjs.Ticker.addListener(this);
-	createjs.Ticker.useRAF = true;
-	createjs.Ticker.setFPS(60);
+	createjs.Ticker.timingMode = createjs.Ticker.RAF;
+	createjs.Ticker.addEventListener("tick", tick);
+
 	
-	
-
-}
-
-
-
-/**
-* Updates the stage on Ticker tick.
-* @param event The recieved tick event.
-*/
-Main.prototype.tick = function(event)
-{
-	if(this.scoreText!=null)
-	{
-		this.count++;
-		if(this.count>5)
+	function tick(event){
+		if(thisRef.scoreText!=null)
 		{
-			this.count = 0;
-			this.score++;
-			this.scoreText.setText("Score: "+this.score);
+			thisRef.count++;
+			if(thisRef.count>5)
+			{
+				thisRef.count = 0;
+				thisRef.score++;
+				thisRef.scoreText.setText("Score: "+thisRef.score);
+			}
 		}
+		thisRef.mainStage.update();
 	}
-	this.mainStage.update();
+	
+	
+
 }
 
 /**

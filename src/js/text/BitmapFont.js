@@ -57,7 +57,7 @@
 		spriteSheet = new createjs.SpriteSheet({images:[this.mTexture],frames:arrFrames,animations:animations});
 		for(var k = 0;k<allChars.length;k++){
 			//var texture = createjs.SpriteSheetUtils.extractFrame(spriteSheet,k);
-            var texture = new createjs.BitmapAnimation(spriteSheet);
+            var texture = new createjs.Sprite(spriteSheet);
             texture.gotoAndStop(k);
             //mStage.addChild(texture);
             texture.x = Math.random()*800;
