@@ -129,7 +129,7 @@
 		if(autoScale==null) autoScale = true;
 		if(kerning==null) kerning = true;
 		
-		if(text==null || text.length==0)
+		if(text==null || text.length==0 || (width==0&&height==0))
 			return [];
 		if(fontSize<0)fontSize *= -this.mSize;
 		var lines = [[]];
